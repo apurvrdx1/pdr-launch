@@ -7,14 +7,21 @@ export const HERO_IMAGES = [
   'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2400', // private dining table
 ];
 
-// Honest framing: the founder (The Creative Connoisseur) has produced private
-// events tied to these conferences and a worldwide venue roster.
-export const CREDIBILITY = [
-  'Collision',
-  'Toronto Tech Week',
-  'Corporate & social events',
-  'A worldwide venue roster',
-  'Private dining specialists',
+// Expansion roadmap confirmed by Samantha: Toronto is the active MVP market;
+// these cities + trade shows are the upcoming targets ("coming soon").
+export const COMING_SOON = [
+  'Montréal',
+  'Edmonton',
+  'Markham',
+  'PEI',
+  'Las Vegas',
+  'Richmond, BC',
+  'IMEX America',
+  'CMEE',
+  'CSAE',
+  'CSE Live',
+  'APC Canada',
+  'RC Show',
 ];
 
 export const RESTAURANT_POINTS = [

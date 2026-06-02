@@ -7,25 +7,45 @@ import ShinyGoldButton from './ShinyGoldButton';
 
 type Role = 'restaurant' | 'planner';
 
-const FIELDS = [
-  { key: 'fullName', label: 'Full name', type: 'text', placeholder: 'Jordan Avery', autoComplete: 'name' },
-  { key: 'email', label: 'Work email', type: 'email', placeholder: 'you@company.com', autoComplete: 'email' },
-  { key: 'company', label: 'Company', type: 'text', placeholder: 'Company name', autoComplete: 'organization' },
-  { key: 'title', label: 'Title', type: 'text', placeholder: 'Your role', autoComplete: 'organization-title' },
-] as const;
+type FieldDef = {
+  key: string;
+  label: string;
+  type: string;
+  placeholder: string;
+  autoComplete: string;
+  /** Span both columns. */
+  full?: boolean;
+};
 
-type FormState = Record<(typeof FIELDS)[number]['key'], string>;
+// Role-specific intake fields.
+const FIELDS_BY_ROLE: Record<Role, FieldDef[]> = {
+  restaurant: [
+    { key: 'city', label: 'City', type: 'text', placeholder: 'Toronto', autoComplete: 'address-level2', full: true },
+    { key: 'restaurantName', label: 'Restaurant name', type: 'text', placeholder: 'Your restaurant', autoComplete: 'organization', full: true },
+    { key: 'contactName', label: 'Primary contact name', type: 'text', placeholder: 'Jordan Avery', autoComplete: 'name' },
+    { key: 'email', label: 'Contact email', type: 'email', placeholder: 'you@restaurant.com', autoComplete: 'email' },
+    { key: 'phone', label: 'Phone number', type: 'tel', placeholder: '(555) 000-0000', autoComplete: 'tel', full: true },
+  ],
+  planner: [
+    { key: 'city', label: 'City', type: 'text', placeholder: 'Toronto', autoComplete: 'address-level2', full: true },
+    { key: 'company', label: 'Agency / company', type: 'text', placeholder: 'Your agency', autoComplete: 'organization', full: true },
+    { key: 'fullName', label: 'Full name', type: 'text', placeholder: 'Jordan Avery', autoComplete: 'name' },
+    { key: 'email', label: 'Work email', type: 'email', placeholder: 'you@company.com', autoComplete: 'email' },
+    { key: 'phone', label: 'Phone number', type: 'tel', placeholder: '(555) 000-0000', autoComplete: 'tel', full: true },
+  ],
+};
 
-const EMPTY: FormState = { fullName: '', email: '', company: '', title: '' };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function EarlyAccess() {
   const [role, setRole] = useState<Role>('restaurant');
-  const [form, setForm] = useState<FormState>(EMPTY);
+  const [form, setForm] = useState<Record<string, string>>({});
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  const fields = FIELDS_BY_ROLE[role];
 
   // Hero / track CTAs preset the role and scroll here.
   useEffect(() => {
@@ -37,7 +57,7 @@ export default function EarlyAccess() {
     return () => window.removeEventListener('pdr:role', handler);
   }, []);
 
-  const set = (key: keyof FormState, value: string) => {
+  const set = (key: string, value: string) => {
     if (error) setError('');
     setForm((prev) => ({ ...prev, [key]: value }));
   };
@@ -46,12 +66,12 @@ export default function EarlyAccess() {
     e.preventDefault();
     if (submitting) return;
 
-    const missing = FIELDS.filter((f) => !form[f.key].trim());
+    const missing = fields.filter((f) => !(form[f.key] || '').trim());
     if (missing.length) {
       setError('Please fill in every field.');
       return;
     }
-    if (!EMAIL_RE.test(form.email)) {
+    if (!EMAIL_RE.test(form.email || '')) {
       setError('Please enter a valid email address.');
       return;
     }
@@ -61,7 +81,7 @@ export default function EarlyAccess() {
     await new Promise((r) => setTimeout(r, 900));
     setSubmitting(false);
     setDone(true);
-    setForm(EMPTY);
+    setForm({});
   };
 
   return (
@@ -157,8 +177,8 @@ export default function EarlyAccess() {
                   </Tabs.Root>
 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    {FIELDS.map((f) => (
-                      <div key={f.key} className={f.key === 'fullName' || f.key === 'email' ? 'sm:col-span-2' : ''}>
+                    {fields.map((f) => (
+                      <div key={f.key} className={f.full ? 'sm:col-span-2' : ''}>
                         <label
                           htmlFor={f.key}
                           className="mb-2 block text-[10px] font-medium uppercase tracking-[0.2em] text-white/55"
@@ -170,7 +190,7 @@ export default function EarlyAccess() {
                           type={f.type}
                           autoComplete={f.autoComplete}
                           placeholder={f.placeholder}
-                          value={form[f.key]}
+                          value={form[f.key] || ''}
                           onChange={(e) => set(f.key, e.target.value)}
                           className="w-full rounded-xl border border-white/20 bg-black/50 px-4 py-3 text-sm text-white placeholder:text-white/45 outline-none transition-colors duration-300 focus:border-gold"
                         />
