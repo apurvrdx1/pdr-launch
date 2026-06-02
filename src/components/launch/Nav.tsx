@@ -68,16 +68,20 @@ export default function Nav() {
           </div>
 
           <div className="flex items-center gap-3">
-            <ShinyGoldButton
-              href="#access"
-              className="hidden py-2 pl-5 pr-2 text-[11px] font-semibold uppercase tracking-[0.18em] sm:inline-flex"
-              contentClassName="gap-2"
-            >
-              Request access
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ink/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px">
-                <Icon icon="ph:arrow-up-right" className="text-sm" />
-              </span>
-            </ShinyGoldButton>
+            {/* Wrapper handles responsive hide — the button's base `inline-flex`
+                would otherwise override a `hidden` class on the button itself. */}
+            <div className="hidden sm:block">
+              <ShinyGoldButton
+                href="#access"
+                className="py-2 pl-5 pr-2 text-[11px] font-semibold uppercase tracking-[0.18em]"
+                contentClassName="gap-2"
+              >
+                Request access
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ink/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px">
+                  <Icon icon="ph:arrow-up-right" className="text-sm" />
+                </span>
+              </ShinyGoldButton>
+            </div>
 
             <button
               type="button"
@@ -102,7 +106,7 @@ export default function Nav() {
 
       {/* Full-screen mobile overlay */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col justify-center gap-2 bg-black/85 px-8 backdrop-blur-3xl transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] lg:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col justify-center gap-6 bg-black/85 px-8 backdrop-blur-3xl transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] lg:hidden ${
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
       >
@@ -112,7 +116,7 @@ export default function Nav() {
             href={l.href}
             onClick={() => setOpen(false)}
             style={{ transitionDelay: open ? `${120 + i * 60}ms` : '0ms' }}
-            className={`font-display text-5xl tracking-tight text-white/90 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+            className={`font-display text-4xl tracking-tight text-white/90 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
               open ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
