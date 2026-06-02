@@ -17,7 +17,8 @@ type FieldDef = {
   full?: boolean;
 };
 
-// Role-specific intake fields.
+// Role-specific intake fields. NOTE: these keys don't match the existing
+// submitConsultation API shape — see the PORTING NOTE in submit() before wiring.
 const FIELDS_BY_ROLE: Record<Role, FieldDef[]> = {
   restaurant: [
     { key: 'city', label: 'City', type: 'text', placeholder: 'Toronto', autoComplete: 'address-level2', full: true },
@@ -77,8 +78,38 @@ export default function EarlyAccess() {
     }
 
     setSubmitting(true);
-    // Front-end only: simulate a request. Wire to the real endpoint later.
+
+    // ───────────────────────────────────────────────────────────────────────
+    // PORTING NOTE — for the agent/harness moving this into the main PdR repo.
+    //
+    // This form is FRONT-END ONLY. The block below just simulates a request.
+    // To make it capture real submissions, replace the setTimeout with the
+    // existing service in the Customer codebase:
+    //
+    //   pdrConsultationService.submitConsultation(payload)   // src/lib/api/pdr-consultation
+    //
+    // ⚠️ FIELD-SHAPE MISMATCH: that endpoint currently expects
+    //   { userType, fullName, email, companyName, title }
+    // but this form now collects ROLE-SPECIFIC fields (see FIELDS_BY_ROLE):
+    //   restaurant -> { city, restaurantName, contactName, email, phone }
+    //   planner    -> { city, company, fullName, email, phone }
+    //
+    // Pick ONE before wiring:
+    //   (A) PREFERRED — extend the API/Mongo schema (and the admin views) to
+    //       persist the new fields (city, phone, restaurantName/contactName).
+    //       Don't silently drop city/phone — they're the point of this form.
+    //   (B) STOPGAP — map onto the existing shape and accept data loss:
+    //         userType    = role
+    //         companyName = restaurant ? restaurantName : company
+    //         fullName    = restaurant ? contactName   : fullName
+    //         title       = ''                 // not collected here
+    //         // city + phone have NOWHERE to go under (B) — they'd be lost.
+    //
+    // Also: add real error handling here (try/catch around the call, surface
+    // err -> setError) — right now the happy path is assumed.
+    // ───────────────────────────────────────────────────────────────────────
     await new Promise((r) => setTimeout(r, 900));
+
     setSubmitting(false);
     setDone(true);
     setForm({});
