@@ -1,0 +1,113 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Fonts */
+  --font-anton: var(--font-anton-src), sans-serif;
+  --font-oswald: var(--font-oswald-src), sans-serif;
+  --font-cormorant: var(--font-cormorant-src), serif;
+
+  /* Brand color */
+  --color-ink: #0a0a0a;
+  --color-ink-deep: #050505;
+  --color-gold: #d4af37;
+  --color-gold-deep: #b8860b;
+  --color-cream: #faf9f6;
+  --color-bone: #efe9dd;
+
+  /* Sizing */
+  --spacing-8xl: 87.5rem; /* 1400px container */
+
+  /* Motion */
+  --ease-lux: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: rgba(255, 255, 255, 0.92);
+  font-family: var(--font-oswald);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Display headline helper */
+.font-display {
+  font-family: var(--font-anton);
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+}
+
+.font-serif-accent {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Fixed film-grain overlay for editorial paper feel */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Scroll-reveal primitive */
+.reveal {
+  opacity: 0;
+  transform: translateY(2.5rem);
+  filter: blur(6px);
+  transition: opacity 0.8s var(--ease-lux), transform 0.8s var(--ease-lux),
+    filter 0.8s var(--ease-lux);
+  will-change: transform, opacity;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Decorative slow marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+
+/* Native control polish on dark */
+select option {
+  background: #0a0a0a;
+  color: #fff;
+}
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .animate-marquee {
+    animation: none;
+  }
+}

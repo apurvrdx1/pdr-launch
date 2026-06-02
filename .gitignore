@@ -1,0 +1,11 @@
+/node_modules
+/.next
+/out
+/build
+/.playwright-mcp
+.DS_Store
+*.pem
+.env*
+!.env.example
+next-env.d.ts
+*.tsbuildinfo
