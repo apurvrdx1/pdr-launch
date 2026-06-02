@@ -18,12 +18,12 @@ function PointCard({ point, delay }: { point: Point; delay: number }) {
       delay={delay}
       className="rounded-[2rem] bg-white/[0.04] p-1.5 ring-1 ring-white/10"
     >
-      <div className="h-full rounded-[calc(2rem-0.375rem)] bg-ink-deep/80 p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+      <div className="h-full rounded-[calc(2rem-0.375rem)] bg-ink-deep p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
         <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
           <Icon icon={point.icon} className="text-xl" />
         </span>
         <h3 className="mt-5 text-lg font-medium tracking-wide text-white">{point.title}</h3>
-        <p className="mt-2.5 text-sm leading-relaxed text-white/60">{point.body}</p>
+        <p className="mt-2.5 text-sm leading-relaxed text-white/85">{point.body}</p>
       </div>
     </Reveal>
   );
@@ -43,7 +43,7 @@ type TrackProps = {
 
 function Track({ id, eyebrow, role, title, intro, cta, image, points, flip }: TrackProps) {
   return (
-    <section id={id} className="mx-auto max-w-[1400px] px-6 py-28 md:px-12 md:py-36 lg:px-20">
+    <section id={id} className="mx-auto max-w-[1400px] px-6 py-14 md:px-12 md:py-18 lg:px-20">
       <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
         {/* Headline column */}
         <div className={`lg:col-span-5 ${flip ? 'lg:order-2' : ''}`}>

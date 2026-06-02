@@ -54,13 +54,13 @@ export default function Hero() {
               Early access · founding members
             </span>
 
-            <h1 className="mt-7 font-display text-[clamp(3rem,9vw,8.5rem)] uppercase text-white">
+            <h1 className="text-shadow-lux mt-7 font-display text-[clamp(1.5rem,4.5vw,4.25rem)] uppercase text-white">
               Private dining,
               <br />
               <span className="font-serif-accent lowercase text-gold">finally</span> on one table.
             </h1>
 
-            <p className="mt-7 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
+            <p className="text-shadow-lux mt-7 max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
               PdR is where the world&apos;s private dining rooms meet the people who book them.
               Restaurants list their rooms. Planners discover, compare, and book — without the
               endless email chains.
@@ -91,7 +91,7 @@ export default function Hero() {
           <div className="lg:col-span-4 lg:pb-3">
             <div className="max-w-xs border-l border-white/25 pl-6">
               <p className="text-[11px] uppercase tracking-[0.3em] text-gold">By The Creative Connoisseur</p>
-              <p className="mt-3 text-sm leading-relaxed text-white/65">
+              <p className="text-shadow-lux mt-3 text-sm leading-relaxed text-white/80">
                 Built by event producers behind private dinners and parties for the world&apos;s
                 most demanding clients.
               </p>
@@ -114,7 +114,7 @@ export default function Hero() {
             />
           ))}
         </div>
-        <span className="flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/50">
+        <span className="text-shadow-lux flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/75">
           Scroll <Icon icon="ph:arrow-down" className="text-sm" />
         </span>
       </div>

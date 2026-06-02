@@ -10,7 +10,7 @@ const SOCIAL = [
 export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-ink-deep">
-      <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-12 lg:px-20">
+      <div className="mx-auto max-w-[1400px] px-6 py-8 md:px-12 lg:px-20">
         <div className="flex flex-col gap-12 md:flex-row md:items-end md:justify-between">
           <div className="max-w-sm">
             <Wordmark />
@@ -48,7 +48,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-7 text-[10px] uppercase tracking-[0.2em] text-white/35 md:flex-row md:items-center md:justify-between">
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-7 text-[10px] uppercase tracking-[0.2em] text-white/60 md:flex-row md:items-center md:justify-between">
           <span>© {new Date().getFullYear()} PdR · The Creative Connoisseur</span>
           <div className="flex gap-6">
             <a href="#" className="transition-colors hover:text-white/70">Privacy</a>

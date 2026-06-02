@@ -40,6 +40,9 @@ export default function RootLayout({
       <body
         className={`${anton.variable} ${oswald.variable} ${cormorant.variable} bg-ink text-white antialiased`}
       >
+        <a href="#top" className="skip-link">
+          Skip to content
+        </a>
         <div className="grain-overlay" aria-hidden="true" />
         {children}
       </body>

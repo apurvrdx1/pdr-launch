@@ -63,7 +63,7 @@ export default function EarlyAccess() {
   };
 
   return (
-    <section id="access" className="relative overflow-hidden py-28 md:py-36">
+    <section id="access" className="relative overflow-hidden py-14 md:py-18">
       {/* Ambient backdrop */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center opacity-30"
@@ -100,7 +100,7 @@ export default function EarlyAccess() {
 
           {/* Form card — double bezel */}
           <div className="rounded-[2rem] bg-white/[0.05] p-1.5 ring-1 ring-white/12">
-            <div className="rounded-[calc(2rem-0.375rem)] bg-ink-deep/90 p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] backdrop-blur-xl md:p-9">
+            <div className="rounded-[calc(2rem-0.375rem)] bg-ink-deep p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] backdrop-blur-xl md:p-9">
               {done ? (
                 <div className="flex flex-col items-center py-12 text-center">
                   <span className="flex h-16 w-16 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
@@ -120,15 +120,23 @@ export default function EarlyAccess() {
               ) : (
                 <form onSubmit={submit} noValidate>
                   {/* Role toggle */}
-                  <p className="mb-3 text-[10px] uppercase tracking-[0.25em] text-white/60">I am a…</p>
-                  <div className="mb-7 grid grid-cols-2 gap-1.5 rounded-full bg-black/40 p-1.5 ring-1 ring-white/10">
+                  <p id="role-label" className="mb-3 text-[10px] uppercase tracking-[0.25em] text-white/60">
+                    I am a…
+                  </p>
+                  <div
+                    role="radiogroup"
+                    aria-labelledby="role-label"
+                    className="mb-7 grid grid-cols-2 gap-1.5 rounded-full bg-black/40 p-1.5 ring-1 ring-white/10"
+                  >
                     {(['restaurant', 'planner'] as Role[]).map((r) => (
                       <button
                         key={r}
                         type="button"
+                        role="radio"
+                        aria-checked={role === r}
                         onClick={() => setRole(r)}
                         className={`rounded-full py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-                          role === r ? 'bg-gold text-ink' : 'text-white/55 hover:text-white'
+                          role === r ? 'bg-gold text-ink' : 'text-white/70 hover:text-white'
                         }`}
                       >
                         {r === 'restaurant' ? 'Restaurant' : 'Event planner'}
@@ -152,7 +160,7 @@ export default function EarlyAccess() {
                           placeholder={f.placeholder}
                           value={form[f.key]}
                           onChange={(e) => set(f.key, e.target.value)}
-                          className="w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors duration-300 focus:border-gold"
+                          className="w-full rounded-xl border border-white/20 bg-black/50 px-4 py-3 text-sm text-white placeholder:text-white/45 outline-none transition-colors duration-300 focus:border-gold"
                         />
                       </div>
                     ))}
@@ -186,7 +194,7 @@ export default function EarlyAccess() {
                     )}
                   </button>
 
-                  <p className="mt-4 text-center text-[10px] uppercase tracking-[0.2em] text-white/35">
+                  <p className="mt-4 text-center text-[10px] uppercase tracking-[0.2em] text-white/60">
                     No spam · onboarding details only
                   </p>
                 </form>

@@ -9,7 +9,7 @@ export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="mx-auto max-w-[1180px] px-6 py-28 md:px-12 md:py-36">
+    <section id="faq" className="mx-auto max-w-[1180px] px-6 py-14 md:px-12 md:py-18">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-4">
           <Reveal>
@@ -27,8 +27,10 @@ export default function Faq() {
               return (
                 <div key={item.q}>
                   <button
+                    id={`faq-trigger-${i}`}
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${i}`}
                     className="flex w-full items-center justify-between gap-6 py-6 text-left"
                   >
                     <span className="text-lg font-medium tracking-wide text-white md:text-xl">
@@ -43,6 +45,9 @@ export default function Faq() {
                     </span>
                   </button>
                   <div
+                    id={`faq-panel-${i}`}
+                    role="region"
+                    aria-labelledby={`faq-trigger-${i}`}
                     className={`grid transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                       isOpen ? 'grid-rows-[1fr] pb-7 opacity-100' : 'grid-rows-[0fr] opacity-0'
                     }`}

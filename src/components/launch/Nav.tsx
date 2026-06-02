@@ -49,7 +49,7 @@ export default function Nav() {
       <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4">
         <nav
           className={`mt-4 flex w-full max-w-[1180px] items-center justify-between rounded-full border border-white/12 px-5 py-3 backdrop-blur-2xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] md:px-7 ${
-            scrolled ? 'bg-black/55 shadow-[0_18px_50px_rgba(0,0,0,0.55)]' : 'bg-white/[0.04]'
+            scrolled ? 'bg-black/60 shadow-[0_18px_50px_rgba(0,0,0,0.55)]' : 'bg-black/30'
           }`}
         >
           <Wordmark />
@@ -59,7 +59,7 @@ export default function Nav() {
               <a
                 key={l.href}
                 href={l.href}
-                className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/70 transition-colors duration-300 hover:text-white"
+                className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/80 transition-colors duration-300 hover:text-white"
               >
                 {l.label}
               </a>
