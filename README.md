@@ -24,8 +24,33 @@ npm run dev      # http://localhost:3000
 ```
 
 ```bash
-npm run build && npm start   # production build
+npm run build      # static export -> ./out
 ```
+
+## Deploy (GitHub Pages)
+
+Live demo: **https://apurvrdx1.github.io/pdr-launch/**
+
+The app is a fully static export (`output: 'export'` in `next.config.ts`, images
+unoptimized). It's published to the `gh-pages` branch and served by GitHub Pages.
+Because a project site lives under `/<repo>/`, the build prefixes assets via the
+`PAGES_BASE_PATH` env var (set to the repo name).
+
+To redeploy after changes:
+
+```bash
+PAGES_BASE_PATH=pdr-launch npm run build   # -> ./out
+touch out/.nojekyll
+( cd out && git init -b gh-pages -q && git add -A \
+    && git commit -qm deploy \
+    && git push -f https://github.com/apurvrdx1/pdr-launch.git gh-pages \
+    && rm -rf .git )
+```
+
+Optional — auto-deploy on push via GitHub Actions instead: grant the CLI the
+workflow scope (`gh auth refresh -h github.com -s workflow`), then add a Pages
+Actions workflow and switch the Pages source to "GitHub Actions". (When this moves
+into the main app repo, deploy via Vercel instead — zero-config for Next.js.)
 
 ## Structure
 
