@@ -14,7 +14,7 @@ export default function Faq() {
         <div className="lg:col-span-4">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Questions</p>
-            <h2 className="mt-5 font-display text-[clamp(2.25rem,4.5vw,3.5rem)] uppercase leading-[0.95] text-white">
+            <h2 className="mt-5 font-display text-[clamp(1.75rem,3vw,2.75rem)] uppercase leading-[0.98] text-white">
               Good to <span className="font-serif-accent lowercase text-gold">know.</span>
             </h2>
           </Reveal>

@@ -1,7 +1,9 @@
 'use client';
 
 import { Icon } from '@iconify/react';
+import { Tabs } from '@ark-ui/react/tabs';
 import { useEffect, useRef, useState } from 'react';
+import ShinyGoldButton from './ShinyGoldButton';
 
 type Role = 'restaurant' | 'planner';
 
@@ -79,7 +81,7 @@ export default function EarlyAccess() {
           {/* Pitch */}
           <div>
             <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Early access</p>
-            <h2 className="mt-5 font-display text-[clamp(2.5rem,6vw,5rem)] uppercase leading-[0.92] text-white">
+            <h2 className="mt-5 font-display text-[clamp(1.875rem,3.4vw,3.25rem)] uppercase leading-[0.98] text-white">
               Hold your <span className="font-serif-accent lowercase text-gold">seat.</span>
             </h2>
             <p className="mt-6 max-w-md text-base leading-relaxed text-white/65">
@@ -119,30 +121,40 @@ export default function EarlyAccess() {
                 </div>
               ) : (
                 <form onSubmit={submit} noValidate>
-                  {/* Role toggle */}
+                  {/* Role selector — underline tabs (Ark UI), controlled by `role` */}
                   <p id="role-label" className="mb-3 text-[10px] uppercase tracking-[0.25em] text-white/60">
                     I am a…
                   </p>
-                  <div
-                    role="radiogroup"
-                    aria-labelledby="role-label"
-                    className="mb-7 grid grid-cols-2 gap-1.5 rounded-full bg-black/40 p-1.5 ring-1 ring-white/10"
+                  <Tabs.Root
+                    value={role}
+                    onValueChange={(d) => setRole(d.value as Role)}
+                    className="mb-8"
                   >
+                    <Tabs.List aria-labelledby="role-label" className="flex gap-8 border-b border-white/12">
+                      {(
+                        [
+                          { value: 'restaurant', label: 'Restaurant', icon: 'ph:fork-knife' },
+                          { value: 'planner', label: 'Event planner', icon: 'ph:calendar-check' },
+                        ] as { value: Role; label: string; icon: string }[]
+                      ).map((t) => (
+                        <Tabs.Trigger
+                          key={t.value}
+                          value={t.value}
+                          className="-mb-px flex items-center gap-2 border-b-2 border-transparent px-1 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55 transition-colors duration-300 hover:text-white data-[selected]:border-gold data-[selected]:text-gold"
+                        >
+                          <Icon icon={t.icon} className="text-base" />
+                          {t.label}
+                        </Tabs.Trigger>
+                      ))}
+                    </Tabs.List>
                     {(['restaurant', 'planner'] as Role[]).map((r) => (
-                      <button
-                        key={r}
-                        type="button"
-                        role="radio"
-                        aria-checked={role === r}
-                        onClick={() => setRole(r)}
-                        className={`rounded-full py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-                          role === r ? 'bg-gold text-ink' : 'text-white/70 hover:text-white'
-                        }`}
-                      >
-                        {r === 'restaurant' ? 'Restaurant' : 'Event planner'}
-                      </button>
+                      <Tabs.Content key={r} value={r} className="sr-only">
+                        {r === 'restaurant'
+                          ? "You're registering as a restaurant."
+                          : "You're registering as an event planner."}
+                      </Tabs.Content>
                     ))}
-                  </div>
+                  </Tabs.Root>
 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     {FIELDS.map((f) => (
@@ -173,10 +185,10 @@ export default function EarlyAccess() {
                     </p>
                   )}
 
-                  <button
+                  <ShinyGoldButton
                     type="submit"
                     disabled={submitting}
-                    className="group mt-7 flex w-full items-center justify-center gap-3 rounded-full bg-gold py-4 text-[12px] font-semibold uppercase tracking-[0.2em] text-ink transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-gold-deep active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="mt-7 w-full py-4 text-[12px] font-semibold uppercase tracking-[0.2em]"
                   >
                     {submitting ? (
                       <>
@@ -192,7 +204,7 @@ export default function EarlyAccess() {
                         />
                       </>
                     )}
-                  </button>
+                  </ShinyGoldButton>
 
                   <p className="mt-4 text-center text-[10px] uppercase tracking-[0.2em] text-white/60">
                     No spam · onboarding details only

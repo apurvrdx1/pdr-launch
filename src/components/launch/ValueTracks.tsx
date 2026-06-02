@@ -2,6 +2,7 @@
 
 import { Icon } from '@iconify/react';
 import Reveal from './Reveal';
+import ShinyGoldButton from './ShinyGoldButton';
 import { RESTAURANT_POINTS, PLANNER_POINTS } from '@/lib/content';
 
 type Point = { icon: string; title: string; body: string };
@@ -49,19 +50,19 @@ function Track({ id, eyebrow, role, title, intro, cta, image, points, flip }: Tr
         <div className={`lg:col-span-5 ${flip ? 'lg:order-2' : ''}`}>
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.4em] text-gold">{eyebrow}</p>
-            <h2 className="mt-5 font-display text-[clamp(2.25rem,5vw,4.25rem)] uppercase leading-[0.95] text-white">
+            <h2 className="mt-5 font-display text-[clamp(1.875rem,3.4vw,3.25rem)] uppercase leading-[0.98] text-white">
               {title}
             </h2>
             <p className="mt-6 max-w-md text-base leading-relaxed text-white/65">{intro}</p>
-            <button
+            <ShinyGoldButton
               onClick={() => chooseRole(role)}
-              className="group mt-9 flex w-max items-center gap-3 rounded-full bg-gold py-3 pl-6 pr-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-gold-deep active:scale-[0.98]"
+              className="mt-9 py-3 pl-6 pr-2 text-[11px] font-semibold uppercase tracking-[0.18em]"
             >
               {cta}
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ink/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105">
                 <Icon icon="ph:arrow-up-right" className="text-sm" />
               </span>
-            </button>
+            </ShinyGoldButton>
           </Reveal>
 
           <Reveal delay={120} className="mt-10 overflow-hidden rounded-[2rem] ring-1 ring-white/10">

@@ -3,6 +3,7 @@
 import { Icon } from '@iconify/react';
 import { useEffect, useState } from 'react';
 import { HERO_IMAGES } from '@/lib/content';
+import ShinyGoldButton from './ShinyGoldButton';
 
 /** Preset the early-access role and scroll to the form. */
 function chooseRole(role: 'restaurant' | 'planner') {
@@ -67,15 +68,15 @@ export default function Hero() {
             </p>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <button
+              <ShinyGoldButton
                 onClick={() => chooseRole('restaurant')}
-                className="group flex items-center justify-between gap-3 rounded-full bg-gold py-3.5 pl-7 pr-2.5 text-[12px] font-semibold uppercase tracking-[0.18em] text-ink transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-gold-deep active:scale-[0.98]"
+                className="py-3.5 pl-7 pr-2.5 text-[12px] font-semibold uppercase tracking-[0.18em]"
               >
                 I run a restaurant
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105">
                   <Icon icon="ph:arrow-up-right" className="text-base" />
                 </span>
-              </button>
+              </ShinyGoldButton>
               <button
                 onClick={() => chooseRole('planner')}
                 className="group flex items-center justify-between gap-3 rounded-full border border-white/30 bg-white/[0.03] py-3.5 pl-7 pr-2.5 text-[12px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-white/60 active:scale-[0.98]"
