@@ -55,12 +55,13 @@ export default function ShinyGoldButton(props: Props) {
       const o1 = (Math.sin(time) + 1) / 2;
       const o2 = (Math.sin(time + Math.PI / 3) + 1) / 2;
       const o3 = (Math.sin(time + (2 * Math.PI) / 3) + 1) / 2;
-      // Antique-gold metal: hue ~40-52, muted saturation, polished sheen mid-stop.
-      g.addColorStop(0, `hsl(${44 + o1 * 6}, 60%, ${46 + o1 * 16}%)`);
-      g.addColorStop(0.25, `hsl(${42 + o2 * 8}, 64%, ${56 + o2 * 12}%)`);
-      g.addColorStop(0.5, `hsl(${47 + o3 * 5}, 56%, ${70 + o3 * 8}%)`);
-      g.addColorStop(0.75, `hsl(${40 + o1 * 9}, 66%, ${50 + o1 * 14}%)`);
-      g.addColorStop(1, `hsl(${45 + o2 * 6}, 62%, ${44 + o2 * 16}%)`);
+      // Antique-gold metal: hue ~40-52, ~20% wider lightness range for more
+      // visible contrast between the dark grooves and the polished sheen.
+      g.addColorStop(0, `hsl(${44 + o1 * 7}, 63%, ${43 + o1 * 17}%)`);
+      g.addColorStop(0.25, `hsl(${42 + o2 * 9}, 67%, ${56 + o2 * 14}%)`);
+      g.addColorStop(0.5, `hsl(${47 + o3 * 6}, 58%, ${73 + o3 * 9}%)`);
+      g.addColorStop(0.75, `hsl(${40 + o1 * 10}, 69%, ${46 + o1 * 16}%)`);
+      g.addColorStop(1, `hsl(${45 + o2 * 7}, 65%, ${41 + o2 * 17}%)`);
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, w, h);
 
@@ -89,7 +90,7 @@ export default function ShinyGoldButton(props: Props) {
     };
 
     const animate = () => {
-      time += 0.01;
+      time += 0.005; // slower, calmer metallic drift
       draw();
       raf = requestAnimationFrame(animate);
     };
