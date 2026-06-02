@@ -17,14 +17,14 @@ function PointCard({ point, delay }: { point: Point; delay: number }) {
     <Reveal
       as="article"
       delay={delay}
-      className="rounded-[2rem] bg-white/[0.04] p-1.5 ring-1 ring-white/10"
+      className="rounded-[1.75rem] bg-white/[0.04] p-1.5 ring-1 ring-white/10"
     >
-      <div className="h-full rounded-[calc(2rem-0.375rem)] bg-ink-deep p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
-        <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
-          <Icon icon={point.icon} className="text-xl" />
+      <div className="h-full rounded-[calc(1.75rem-0.375rem)] bg-ink-deep p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
+          <Icon icon={point.icon} className="text-lg" />
         </span>
-        <h3 className="mt-5 text-lg font-medium tracking-wide text-white">{point.title}</h3>
-        <p className="mt-2.5 text-sm leading-relaxed text-white/85">{point.body}</p>
+        <h3 className="mt-4 text-base font-medium tracking-wide text-white">{point.title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-white/85">{point.body}</p>
       </div>
     </Reveal>
   );
@@ -45,18 +45,18 @@ type TrackProps = {
 function Track({ id, eyebrow, role, title, intro, cta, image, points, flip }: TrackProps) {
   return (
     <section id={id} className="mx-auto max-w-[1400px] px-6 py-14 md:px-12 md:py-18 lg:px-20">
-      <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
-        {/* Headline column */}
-        <div className={`lg:col-span-5 ${flip ? 'lg:order-2' : ''}`}>
+      <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-12 lg:gap-12">
+        {/* Content column: headline + CTA + 2x2 points */}
+        <div className={`lg:col-span-7 ${flip ? 'lg:order-2' : ''}`}>
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.4em] text-gold">{eyebrow}</p>
             <h2 className="mt-5 font-display text-[clamp(1.875rem,3.4vw,3.25rem)] uppercase leading-[0.98] text-white">
               {title}
             </h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-white/65">{intro}</p>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/75">{intro}</p>
             <ShinyGoldButton
               onClick={() => chooseRole(role)}
-              className="mt-9 py-3 pl-6 pr-2 text-[11px] font-semibold uppercase tracking-[0.18em]"
+              className="mt-8 py-3 pl-6 pr-2 text-[11px] font-semibold uppercase tracking-[0.18em]"
             >
               {cta}
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ink/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105">
@@ -65,23 +65,23 @@ function Track({ id, eyebrow, role, title, intro, cta, image, points, flip }: Tr
             </ShinyGoldButton>
           </Reveal>
 
-          <Reveal delay={120} className="mt-10 overflow-hidden rounded-[2rem] ring-1 ring-white/10">
-            <div
-              className="relative aspect-[4/3] bg-cover bg-center"
-              style={{ backgroundImage: `url(${image})` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent" />
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Points bento */}
-        <div className={`lg:col-span-7 ${flip ? 'lg:order-1' : ''}`}>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {points.map((p, i) => (
-              <PointCard key={p.title} point={p} delay={i * 90} />
+              <PointCard key={p.title} point={p} delay={i * 80} />
             ))}
           </div>
+        </div>
+
+        {/* Full-height photo column — fills to match content height */}
+        <div className={`lg:col-span-5 ${flip ? 'lg:order-1' : ''}`}>
+          <Reveal delay={120} className="h-full">
+            <div
+              className="relative h-full min-h-[22rem] overflow-hidden rounded-[2rem] bg-cover bg-center ring-1 ring-white/10"
+              style={{ backgroundImage: `url(${image})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
